@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jAZ-bh-WAt">
+    <device id="retina3_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Contacts List View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="ContactsListViewController" id="BYZ-38-t0r" customClass="ContactsListViewController" customModule="Contacts" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rvf-jG-hkd">
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                                <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="3Qr-aY-iXP"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="YdZ-ub-LJu"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Rvf-jG-hkd" secondAttribute="trailing" id="M4I-oy-O1m"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Rvf-jG-hkd" secondAttribute="bottom" id="QnP-ZN-GdX"/>
+                            <constraint firstItem="Rvf-jG-hkd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="WXj-Rj-phu"/>
+                            <constraint firstItem="Rvf-jG-hkd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="okP-Tv-0Pi"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="dHX-cS-l32"/>
+                    <connections>
+                        <outlet property="contactsListTableView" destination="Rvf-jG-hkd" id="XLm-aC-WF5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="133" y="256"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="zgq-ho-ces">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jAZ-bh-WAt" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="q4Z-Iy-h4L">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="vYT-tu-lQP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zyo-jQ-van" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="133.59999999999999" y="-564.46776611694156"/>
+        </scene>
+        <!--Contact Details View Controller-->
+        <scene sceneID="QpW-yC-pLe">
+            <objects>
+                <viewController storyboardIdentifier="ContactDetailsViewController" id="ARf-en-Wnm" customClass="ContactDetailsViewController" customModule="Contacts" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="biF-qy-Awq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Tgn-iN-ngm">
+                                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="ARf-en-Wnm" id="02h-kl-7lw"/>
+                                    <outlet property="delegate" destination="ARf-en-Wnm" id="mwk-Yc-aqd"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="BQe-R0-omn" firstAttribute="bottom" secondItem="Tgn-iN-ngm" secondAttribute="bottom" id="9Ql-iA-DrB"/>
+                            <constraint firstItem="Tgn-iN-ngm" firstAttribute="leading" secondItem="BQe-R0-omn" secondAttribute="leading" id="a2N-O3-HpH"/>
+                            <constraint firstItem="Tgn-iN-ngm" firstAttribute="top" secondItem="BQe-R0-omn" secondAttribute="top" id="g5Z-XV-sFL"/>
+                            <constraint firstItem="BQe-R0-omn" firstAttribute="trailing" secondItem="Tgn-iN-ngm" secondAttribute="trailing" id="wYU-zY-GPh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BQe-R0-omn"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="fFv-dN-Fad"/>
+                    <connections>
+                        <outlet property="contactDetailsTableView" destination="Tgn-iN-ngm" id="Fn8-U2-o5y"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OKh-o7-gsl" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1283" y="255"/>
+        </scene>
+    </scenes>
+</document>

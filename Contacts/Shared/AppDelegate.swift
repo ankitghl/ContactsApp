@@ -15,7 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let contactVC = ContactsListViewController.instantiateFromStoryboard(from: .main)
+        let navigationVC = UINavigationController(rootViewController: contactVC)
+        navigationVC.navigationBar.tintColor = UIColor(red: 79/255, green: 227/255, blue: 194/255, alpha: 1)
+        window?.rootViewController = navigationVC
+        window?.makeKeyAndVisible()
         return true
     }
 
