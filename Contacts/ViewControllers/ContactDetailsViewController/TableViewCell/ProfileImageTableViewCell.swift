@@ -10,6 +10,8 @@ import UIKit
 
 class ProfileImageTableViewCell: UITableViewCell {
 
+    //MARK: - Outlets -
+
     @IBOutlet weak var infoContainerStackView: UIStackView!
     @IBOutlet weak private var containerView: UIView!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -18,6 +20,7 @@ class ProfileImageTableViewCell: UITableViewCell {
     @IBOutlet weak var cameraButton: UIButton!
     var didButtonTap: ((UIButton) -> Void)?
     
+    //MARK: - Overridden Methods -
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -31,10 +34,13 @@ class ProfileImageTableViewCell: UITableViewCell {
         addGradient()
     }
     
+    //MARK: - Button Tappables -
     @IBAction func didButtonTapped(_ sender: UIButton) {
         didButtonTap?(sender)
     }
     
+    //MARK: - Internal Accesibles -
+
     func configure(details: ContactDisplayModel?) {
         guard let contact = details else { return }
         nameLabel.text = contact.fullName

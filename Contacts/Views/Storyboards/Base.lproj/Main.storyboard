@@ -98,7 +98,41 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OKh-o7-gsl" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1283" y="255"/>
+            <point key="canvasLocation" x="951" y="255"/>
+        </scene>
+        <!--Contact Add Edit View Controller-->
+        <scene sceneID="ynb-0C-BGF">
+            <objects>
+                <viewController storyboardIdentifier="ContactAddEditViewController" id="Uzm-5J-BlK" customClass="ContactAddEditViewController" customModule="Contacts" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Dhj-hJ-PNu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZqE-UR-vGG">
+                                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Uzm-5J-BlK" id="YwT-QY-X35"/>
+                                    <outlet property="delegate" destination="Uzm-5J-BlK" id="Hzg-HZ-4pA"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ZqE-UR-vGG" firstAttribute="leading" secondItem="Dhj-hJ-PNu" secondAttribute="leading" id="B5e-kG-tvQ"/>
+                            <constraint firstItem="ZqE-UR-vGG" firstAttribute="top" secondItem="bCu-Uj-Dwo" secondAttribute="top" id="Ghx-qr-Kwo"/>
+                            <constraint firstItem="bCu-Uj-Dwo" firstAttribute="bottom" secondItem="ZqE-UR-vGG" secondAttribute="bottom" id="YaM-L7-8ut"/>
+                            <constraint firstItem="bCu-Uj-Dwo" firstAttribute="trailing" secondItem="ZqE-UR-vGG" secondAttribute="trailing" id="dUq-0M-qKg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bCu-Uj-Dwo"/>
+                    </view>
+                    <connections>
+                        <outlet property="contactTableView" destination="ZqE-UR-vGG" id="eaB-ne-JUb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ize-PS-Njk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1794" y="255"/>
         </scene>
     </scenes>
 </document>

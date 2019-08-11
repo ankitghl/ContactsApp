@@ -36,6 +36,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="didChangeTextField:" destination="tXg-Wd-lab" eventType="editingChanged" id="aQw-xy-DRl"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FnM-TV-fIF"/>
@@ -52,7 +55,7 @@
                 <outlet property="fieldTextField" destination="LGh-ca-BZL" id="yCh-Io-1VW"/>
                 <outlet property="titleLabel" destination="YCh-NY-73p" id="xS8-b0-O4j"/>
             </connections>
-            <point key="canvasLocation" x="-270" y="-86"/>
+            <point key="canvasLocation" x="-723" y="-191"/>
         </tableViewCell>
     </objects>
 </document>

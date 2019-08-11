@@ -69,13 +69,4 @@ class NetworkManager: NSObject {
         }
         dataTask.resume()
     }
-
-//    private func getJSONData(forRequestType type: NetworkManagerProtocol) -> Data {
-//        switch type.requestType {
-//        case .list:
-//            
-//        default:
-//            <#code#>
-//        }
-//    }
 }

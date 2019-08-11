@@ -11,11 +11,13 @@ import MessageUI
 
 class ContactDetailsViewController: UIViewController {
 
-    //MARK: - Constants and Variables -
+    //MARK: - Outlets -
     @IBOutlet weak var contactDetailsTableView: UITableView!
 
+    //MARK: - Constants and Variables -
     var editContact: Contact?
     var viewModel: ContactDetailsViewModel?
+    var contactUpdateDelegate: ContactUpdateProtocol?
 
     let productImageCellIdentifier = "ProfileImageTableViewCell"
     let fieldCellIdentifier = "FieldTableViewCell"
@@ -27,7 +29,7 @@ class ContactDetailsViewController: UIViewController {
     }
 
     //MARK: - Private Helpers -
-    func setUpUI() {
+    private func setUpUI() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(didTapEditBarButton(_:)))
         contactDetailsTableView.tableFooterView = UIView()
         contactDetailsTableView.register(UINib(nibName: "ProfileImageTableViewCell", bundle: nil), forCellReuseIdentifier: productImageCellIdentifier)
@@ -37,18 +39,8 @@ class ContactDetailsViewController: UIViewController {
         viewModel?.getContactDetails()
     }
 
-    @objc func didTapEditBarButton(_ barButton: UIBarButtonItem) {
-//        guard let contactData = viewModel.contactData else { return }
-//        let contactInfoVC = ContactInfoVC.instantiateFromStoryboard(from: .main)
-//        contactInfoVC.path = url.getPath()
-//        contactInfoVC.contactData = contactData
-//        contactInfoVC.updatedContact = { [weak self] contactDataModel in
-//            self?.viewModel.updateContactDataModel?(contactDataModel)
-//        }
-//        self.present(UINavigationController(rootViewController: contactInfoVC), animated: false, completion: nil)
-    }
     
-    func action(for button: UIButton) {
+    private func action(for button: UIButton) {
         switch button.tag {
         case ContactDetailsActionTags.message.tag(): // Message
             guard let phoneNumber = viewModel?.contactData?.phoneNumber else { return }
@@ -66,7 +58,7 @@ class ContactDetailsViewController: UIViewController {
         }
     }
 
-    func makeACall(phoneNumber: String) {
+    private func makeACall(phoneNumber: String) {
         guard let url = URL(string: "tel://\(phoneNumber)"),
             UIApplication.shared.canOpenURL(url) else { return }
         if #available(iOS 10, *) {
@@ -74,6 +66,16 @@ class ContactDetailsViewController: UIViewController {
         } else {
             UIApplication.shared.openURL(url)
         }
+    }
+
+    //MARK: - Button Tappables -
+    @objc func didTapEditBarButton(_ barButton: UIBarButtonItem) {
+        guard let contactData = viewModel?.contactData else { return }
+        
+        let contactAddVC = ContactAddEditViewController.instantiateFromStoryboard(from: .main)
+        contactAddVC.contactUpdateDelegate = contactUpdateDelegate
+        contactAddVC.viewModel = ContactAddEditViewModel(delegate: contactAddVC, urlPath: viewModel?.path ?? "", screenType: .edit, contact: contactData)
+        present(UINavigationController(rootViewController: contactAddVC), animated: true, completion: nil)
     }
 
 }
@@ -132,14 +134,14 @@ extension ContactDetailsViewController: UITableViewDelegate {
     }
 }
 
-extension ContactDetailsViewController: ContactDetailsViewModelProtocol {
-    func didFetchContactDetails() {
+extension ContactDetailsViewController: ContactViewModelProtocol {
+    func didFetchContactData() {
         hideActivityIndicator()
         contactDetailsTableView.reloadData()
-
+        contactUpdateDelegate?.didUpdateContact()
     }
     
-    func didReceiveFetchContactDetailsError(error: String) {
+    func didReceiveFetchContactDataError(error: String) {
         hideActivityIndicator()
     }
 }
@@ -179,4 +181,3 @@ extension ContactDetailsViewController: MFMailComposeViewControllerDelegate, MFM
         controller.dismiss(animated: true, completion: nil)
     }
 }
-

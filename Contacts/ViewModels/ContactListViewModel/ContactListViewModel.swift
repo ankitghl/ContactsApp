@@ -12,13 +12,13 @@ class ContactListViewModel: NSObject {
 
     // MARK: - Constants and Variables -
     var networkClient: NetworkManager?
-    weak var contactListViewModelDelegate: ContactListViewModelProtocol?
+    weak var contactListViewModelDelegate: ContactViewModelProtocol?
     var contactListSections: [ContactListSection] = []
 
     let title = "Contacts"
     
     // MARK: - Initiliasers -
-    init(delegate: ContactListViewModelProtocol) {
+    init(delegate: ContactViewModelProtocol) {
         super.init()
         
         contactListViewModelDelegate = delegate
@@ -58,11 +58,11 @@ extension ContactListViewModel: ContactListResponseProtocol {
             contactListSections = calculatingSections
 
             DispatchQueue.main.async { [weak self] in
-                self?.contactListViewModelDelegate?.didFetchContactList()
+                self?.contactListViewModelDelegate?.didFetchContactData()
             }
         } catch {
             DispatchQueue.main.async { [weak self] in
-                self?.contactListViewModelDelegate?.didReceiveFetchContactListError(error: "Cannot parse response")
+                self?.contactListViewModelDelegate?.didReceiveFetchContactDataError(error: "Cannot parse response")
             }
         }
 
@@ -70,7 +70,7 @@ extension ContactListViewModel: ContactListResponseProtocol {
     
     func didReceiveContactListDataError(error: String) {
         DispatchQueue.main.async { [weak self] in
-            self?.contactListViewModelDelegate?.didReceiveFetchContactListError(error: error)
+            self?.contactListViewModelDelegate?.didReceiveFetchContactDataError(error: error)
         }
     }
 }

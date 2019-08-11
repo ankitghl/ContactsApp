@@ -13,17 +13,17 @@ protocol ContactListResponseProtocol: class {
     func didReceiveContactListDataError(error: String)
 }
 
-protocol ContactListViewModelProtocol: class {
-    func didFetchContactList()
-    func didReceiveFetchContactListError(error: String)
+protocol ContactViewModelProtocol: class {
+    func didFetchContactData()
+    func didReceiveFetchContactDataError(error: String)
 }
 
-protocol ContactDetailsViewModelProtocol: class {
-    func didFetchContactDetails()
-    func didReceiveFetchContactDetailsError(error: String)
+protocol ContactUpdateProtocol: class {
+    func didUpdateContact()
 }
 
-//protocol ContactImageDownloadResponseProtocol: class {
-//    func didFetchImage(with data: Data)
-//    func didReceiveImageDownloadError(error: String)
-//}
+protocol ContactDeleteProtocol: class {
+    func didDeleteContact()
+}
+
+

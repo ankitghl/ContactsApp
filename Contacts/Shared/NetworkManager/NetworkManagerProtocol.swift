@@ -33,13 +33,4 @@ protocol NetworkManagerProtocol {
     var task: Task { get }
     var method: HTTPMethod { get }
     var parametersEncoding: ParametersEncoding { get }
-//    var requestType: RequestType { get }
-}
-
-enum RequestType {
-    case list
-    case detail
-    case add
-    case edit
-    case delete
 }

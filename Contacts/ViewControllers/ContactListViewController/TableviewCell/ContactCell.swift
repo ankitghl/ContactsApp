@@ -10,10 +10,14 @@ import UIKit
 
 class ContactCell: UITableViewCell {
 
+    //MARK: - Outlets -
+
     @IBOutlet weak var contactPhotoView: UIImageView!
     @IBOutlet weak var contactNameLabel: UILabel!
     @IBOutlet weak var contactFavouriteImageView: UIImageView!
     
+    //MARK: - Overridden Methods -
+
     override func layoutSubviews() {
         super.layoutSubviews()
         contactPhotoView.layer.cornerRadius = contactPhotoView.frame.size.height/2
@@ -22,7 +26,7 @@ class ContactCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        contactPhotoView.image = nil
+        contactPhotoView.image = UIImage(named: "placeholder_photo")
         contactNameLabel.text = ""
         contactFavouriteImageView.isHidden = true
     }

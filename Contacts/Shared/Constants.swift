@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 enum ContactDetailsActionTags: Int {
     case message
     case phone
@@ -67,4 +66,11 @@ public enum ContactActionType {
     case create
     case edit
     case delete
+}
+
+public enum ContactUpdateKeys: String {
+    case firstName = "first_name"
+    case lastName = "last_name"
+    case mobile = "phone_number"
+    case email = "email"
 }

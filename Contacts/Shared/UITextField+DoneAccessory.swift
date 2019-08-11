@@ -22,7 +22,7 @@ extension UITextField {
         }
     }
     
-    func addDoneAccessoryButtonOnKeyboard() {
+    private func addDoneAccessoryButtonOnKeyboard() {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: Int(UIScreen.main.bounds.width), height: MiscellaneousConstants.doneAccessoryButtonHeight.rawValue))
         doneToolbar.barStyle = .default
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
