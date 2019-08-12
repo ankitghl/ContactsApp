@@ -17,13 +17,8 @@ class ContactDetailsViewModel {
     private(set) var contactData: ContactDisplayModel?
 
     // MARK: - Initiliasers -
-    init() {
-    }
-    
-    convenience init(delegate: ContactViewModelProtocol, urlPath: String) {
-        self.init()
+    init(urlPath: String) {
         path = getPath(path: urlPath)
-        contactDetailsViewModelDelegate = delegate
         networkClient = NetworkManager(contactDelegate: self)
     }
     
@@ -44,7 +39,6 @@ class ContactDetailsViewModel {
         let urlComp = URLComponents(string: path)
         return urlComp?.path
     }
-    
 
     func isPresent(field fieldValue: String?) -> Bool {
         if fieldValue == nil || fieldValue == "" {
@@ -54,6 +48,9 @@ class ContactDetailsViewModel {
         }
     }
     
+    func getViewModel() -> ContactAddEditViewModel {
+        return ContactAddEditViewModel(urlPath: path ?? "", screenType: .edit, contact: contactData)
+    }
 }
 
 //MARK: - MovieListAPIResponseProtocol Delegate Methods -

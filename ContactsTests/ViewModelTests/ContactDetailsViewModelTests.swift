@@ -14,7 +14,7 @@ class ContactDetailsViewModelTests: XCTestCase {
     var viewModel: ContactDetailsViewModel?
 
     override func setUp() {
-        viewModel = ContactDetailsViewModel()
+        viewModel = ContactDetailsViewModel(urlPath: "")
     }
 
     override func tearDown() {

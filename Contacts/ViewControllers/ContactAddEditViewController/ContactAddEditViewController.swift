@@ -20,7 +20,6 @@ class ContactAddEditViewController: UIViewController {
 
     let productImageCellIdentifier = "ProfileImageTableViewCell"
     let fieldCellIdentifier = "FieldTableViewCell"
-    let buttonCellIdentifier = "ContactDeleteTableViewCell"
 
     //MARK: - View Lifecycle -
     override func viewDidLoad() {
@@ -30,10 +29,10 @@ class ContactAddEditViewController: UIViewController {
     
     //MARK: - Private Helpers -
     private func setUpUI() {
+        viewModel?.contactAddDeleteViewModelDelegate = self
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDoneButton(_:)))
         contactTableView.tableFooterView = UIView()
         contactTableView.register(UINib(nibName: "ProfileImageTableViewCell", bundle: nil), forCellReuseIdentifier: productImageCellIdentifier)
-        contactTableView.register(UINib(nibName: "ContactDeleteTableViewCell", bundle: nil), forCellReuseIdentifier: buttonCellIdentifier)
         contactTableView.register(UINib(nibName: "FieldTableViewCell", bundle: nil), forCellReuseIdentifier: fieldCellIdentifier)
         
     }
@@ -43,7 +42,7 @@ class ContactAddEditViewController: UIViewController {
             showAlert(title: "Contacts", message: _errorMessage, style: .alert, actions: [UIAlertAction(title: "OK", style: .default, handler: nil)])
         } else {
             showActivityIndicator()
-            viewModel?.editContact()
+            viewModel?.createNewContact()
         }
     }
     
@@ -68,7 +67,7 @@ extension ContactAddEditViewController: UITextFieldDelegate {
 extension ContactAddEditViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel?.contactActionType == .edit ? 6 : 5
+        return 5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -80,14 +79,6 @@ extension ContactAddEditViewController: UITableViewDataSource {
             if let cell: ProfileImageTableViewCell = tableView.dequeueReusableCell(withIdentifier: productImageCellIdentifier, for: indexPath) as? ProfileImageTableViewCell {
                 cell.infoContainerStackView.isHidden = true
                 cell.configure(details: viewModel?.contactData)
-                return cell
-            }
-        } else if indexPath.section == 5 && viewModel?.contactActionType == .edit {
-            if let cell: ContactDeleteTableViewCell = tableView.dequeueReusableCell(withIdentifier: buttonCellIdentifier, for: indexPath) as? ContactDeleteTableViewCell {
-                cell.didTapDelete = { [weak self] in
-                    self?.showActivityIndicator()
-                    self?.viewModel?.deleteContact()
-                }
                 return cell
             }
         } else {
@@ -148,9 +139,12 @@ extension ContactAddEditViewController: ContactViewModelProtocol {
         self.dismiss(animated: true, completion: { [weak self] in
             self?.contactUpdateDelegate?.didUpdateContact()
         })
-        let appDelegate = UIApplication.shared.delegate
-        if let navigationVC = appDelegate?.window??.rootViewController as? UINavigationController {
-            navigationVC.viewControllers = navigationVC.viewControllers.dropLast()
+        if viewModel?.contactActionType != .create {
+            let appDelegate = UIApplication.shared.delegate
+            if let navigationVC = appDelegate?.window??.rootViewController as? UINavigationController {
+                navigationVC.viewControllers = navigationVC.viewControllers.dropLast()
+            }
+
         }
     }
     

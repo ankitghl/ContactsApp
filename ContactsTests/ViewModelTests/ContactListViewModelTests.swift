@@ -20,9 +20,10 @@ class ContactListViewModelTests: XCTestCase {
         viewModel = ContactListViewModel()
         if let path = Bundle.main.path(forResource: "ContactJSON", ofType: "json") {
             if let jsonData: Data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
-                if let contactListData = try? JSONDecoder().decode([Contact].self, from: jsonData) {
-                    contactList = contactListData
-                }
+                let decoder = JSONDecoder.init()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let contacts = try? decoder.decode([Contact].self, from: jsonData)
+                    contactList = contacts
             }
         }
     }
@@ -46,7 +47,8 @@ class ContactListViewModelTests: XCTestCase {
     }
     
     func testContactsSectionForAlphabetACount() {
-        if let _contacts = contactList, let _contactSection = viewModel?.sortAndArrangeContacts(contacts: _contacts) {
+        if let _contacts = contactList,
+            let _contactSection = viewModel?.sortAndArrangeContacts(contacts: _contacts) {
             contactListSections = _contactSection
             let sectionA = contactListSections.first
             XCTAssertEqual(sectionA?.contacts.count, 3)

@@ -13,24 +13,23 @@ class ContactAddEditViewModel {
     // MARK: - Constants and Variables -
 
     private var networkClient: NetworkManager?
-    private var contactAddDeleteViewModelDelegate: ContactViewModelProtocol?
     private var path: String?
     private (set) var  contactActionType: ContactActionType
 
+    var contactAddDeleteViewModelDelegate: ContactViewModelProtocol?
     var isFieldValuesChanged: Bool = false
     var contactData: ContactDisplayModel?
 
     // MARK: - Initiliasers -
     init() {
-        contactActionType = .create
+        contactActionType = .edit
     }
     
-    convenience init(delegate: ContactViewModelProtocol, urlPath: String, screenType: ContactActionType, contact: ContactDisplayModel?) {
+     convenience init(urlPath: String, screenType: ContactActionType, contact: ContactDisplayModel?) {
         self.init()
-
+        
         contactActionType = screenType
         path = getPath(path: urlPath)
-        contactAddDeleteViewModelDelegate = delegate
         contactData = contact
         networkClient = NetworkManager(contactDelegate: self)
     }
@@ -57,7 +56,7 @@ class ContactAddEditViewModel {
         return emailPredicate.evaluate(with: email)
     }
 
-    private func updateContact() {
+    private func createContact() {
         guard contactData != nil else { return }
         
         var networkService: NetworkManagerProtocol = NetworkManagerRequest.update(parameters: prepareContactParamaterDictionaryForUpdate(), path: path ?? "", type: contactActionType)
@@ -70,14 +69,14 @@ class ContactAddEditViewModel {
 
     // MARK: - API Calls -
 
-    func editContact() {
+    func createNewContact() {
         contactActionType = .create
-        updateContact()
+        createContact()
     }
     
     func deleteContact() {
         contactActionType = .delete
-        updateContact()
+        createContact()
     }
     
     // MARK: - Internal Accessibles -

@@ -37,7 +37,8 @@ class ContactsListViewController: UIViewController {
         contactsListTableView.register(UINib(nibName: "ContactCell", bundle: nil), forCellReuseIdentifier: contactCellIdentifier)
         contactsListTableView.tableFooterView = UIView()
         
-        viewModel = ContactListViewModel(delegate: self)
+        viewModel = ContactListViewModel()
+        viewModel?.contactListViewModelDelegate = self
         navigationItem.title = viewModel?.title
         showActivityIndicator()
         viewModel?.getContactList()
@@ -48,7 +49,7 @@ class ContactsListViewController: UIViewController {
     @objc func didTapAddButton(_ barButton: UIBarButtonItem) {
         let contactAddVC = ContactAddEditViewController.instantiateFromStoryboard(from: .main)
         contactAddVC.contactUpdateDelegate = self
-        contactAddVC.viewModel = ContactAddEditViewModel(delegate: contactAddVC, urlPath: "", screenType: .create, contact: nil)
+        contactAddVC.viewModel = viewModel?.getViewModelForAddEdit()
         present(UINavigationController(rootViewController: contactAddVC), animated: true, completion: nil)
     }
 
@@ -74,17 +75,6 @@ extension ContactsListViewController: UITableViewDataSource, UITableViewDelegate
         return viewModel?.contactListSections.compactMap({ $0.sectionTitle })
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let contactData: Contact = viewModel?.contactListSections[indexPath.section].contacts[indexPath.row] {
-            let contactDetailsVC = ContactDetailsViewController.instantiateFromStoryboard(from: .main)
-            contactDetailsVC.editContact = contactData
-            contactDetailsVC.contactUpdateDelegate = self
-            let contactURL = viewModel?.contactListSections[indexPath.section].contacts[indexPath.row].url ?? ""
-            contactDetailsVC.viewModel = ContactDetailsViewModel(delegate: contactDetailsVC, urlPath: contactURL)
-            navigationController?.pushViewController(contactDetailsVC, animated: true)
-        }
-    }
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: contactCellIdentifier) as! ContactCell
 
@@ -96,31 +86,27 @@ extension ContactsListViewController: UITableViewDataSource, UITableViewDelegate
             } else {
                 cell.contactFavouriteImageView.isHidden = false
             }
-            
-//            guard let profilePic = contact.profilePic, let url = URL.init(string: profilePic) else {
-//                return cell
-//            }
-            
-//            let task = URLSession.shared.dataTask(with: url) { [weak cell] data, response, error in
-//                guard let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-//                    let urlData = data, error == nil else {
-//                        DispatchQueue.main.async {
-//                            cell?.contactPhotoView.image = UIImage.init(named: "placeholder_photo")
-//                        }
-//                        return
-//                }
-//                let image = UIImage.init(data: urlData)
-//                DispatchQueue.main.async {
-//                    cell?.contactPhotoView.image = image
-//                }
-//            }
-//            task.resume()
+            guard let profilePic = contact.profilePic else {
+                return cell
+            }
+
+            cell.contactPhotoView.loadImage(from: NetworkManagerRequest.baseURL + profilePic, placeholder: UIImage(named: "placeholder_photo")!)
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(ContactDetailsTableView.normal.height())
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let contactData: Contact = viewModel?.contactListSections[indexPath.section].contacts[indexPath.row] {
+            let contactDetailsVC = ContactDetailsViewController.instantiateFromStoryboard(from: .main)
+            contactDetailsVC.editContact = contactData
+            contactDetailsVC.contactUpdateDelegate = self
+            contactDetailsVC.viewModel = viewModel?.getViewModelForContact(for: indexPath)
+            navigationController?.pushViewController(contactDetailsVC, animated: true)
+        }
     }
 }
 

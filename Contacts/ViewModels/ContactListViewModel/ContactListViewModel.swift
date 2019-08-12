@@ -19,15 +19,10 @@ class ContactListViewModel {
     
     // MARK: - Initiliasers -
     init() {
-    }
-
-    convenience init(delegate: ContactViewModelProtocol) {
-        self.init()
-        
-        contactListViewModelDelegate = delegate
         networkClient = NetworkManager(contactDelegate: self)
     }
-    
+        
+    // MARK: - Internal Accessibles -
     func sortAndArrangeContacts(contacts: [Contact]) -> [ContactListSection] {
         let sortedContacts = contacts.sorted(by: { $0.fullName < $1.fullName })
         
@@ -45,6 +40,14 @@ class ContactListViewModel {
         return calculatingSections
     }
     
+    func getViewModelForContact(for indexPath: IndexPath) -> ContactDetailsViewModel {
+        let contactURL = contactListSections[indexPath.section].contacts[indexPath.row].url ?? ""
+        return ContactDetailsViewModel(urlPath: contactURL)
+    }
+    
+    func getViewModelForAddEdit() -> ContactAddEditViewModel {
+        return ContactAddEditViewModel(urlPath: "", screenType: .create, contact: nil)
+    }
     //MARK: - API Calls
     
     func getContactList() {

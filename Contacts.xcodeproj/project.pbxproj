@@ -38,8 +38,6 @@
 		D8BBE22C22FED14A00425BAE /* UIImageView+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBE22B22FED14A00425BAE /* UIImageView+Download.swift */; };
 		D8BBE22F22FF1C2900425BAE /* ContactAddEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBE22E22FF1C2900425BAE /* ContactAddEditViewController.swift */; };
 		D8BBE23222FF216E00425BAE /* ContactAddEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBE23122FF216E00425BAE /* ContactAddEditViewModel.swift */; };
-		D8BBE23622FF2FD800425BAE /* ContactDeleteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBE23422FF2FD800425BAE /* ContactDeleteTableViewCell.swift */; };
-		D8BBE23722FF2FD800425BAE /* ContactDeleteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8BBE23522FF2FD800425BAE /* ContactDeleteTableViewCell.xib */; };
 		D8BDE81322FDB41E00188646 /* FieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8BDE81222FDB41E00188646 /* FieldTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
@@ -88,8 +86,6 @@
 		D8BBE22B22FED14A00425BAE /* UIImageView+Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Download.swift"; sourceTree = "<group>"; };
 		D8BBE22E22FF1C2900425BAE /* ContactAddEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactAddEditViewController.swift; sourceTree = "<group>"; };
 		D8BBE23122FF216E00425BAE /* ContactAddEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactAddEditViewModel.swift; sourceTree = "<group>"; };
-		D8BBE23422FF2FD800425BAE /* ContactDeleteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDeleteTableViewCell.swift; sourceTree = "<group>"; };
-		D8BBE23522FF2FD800425BAE /* ContactDeleteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactDeleteTableViewCell.xib; sourceTree = "<group>"; };
 		D8BDE81222FDB41E00188646 /* FieldTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FieldTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -214,9 +210,9 @@
 		D867423B22FC5AC8004C2B9A /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				D8BBE23022FF212E00425BAE /* ContactAddEditViewModel */,
-				D8BBE22322FDE0BC00425BAE /* ContactDetailsViewModel */,
 				D8BBE22222FDE0AF00425BAE /* ContactListViewModel */,
+				D8BBE22322FDE0BC00425BAE /* ContactDetailsViewModel */,
+				D8BBE23022FF212E00425BAE /* ContactAddEditViewModel */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -299,7 +295,6 @@
 		D8BBE22D22FF1BDE00425BAE /* ContactAddEditViewController */ = {
 			isa = PBXGroup;
 			children = (
-				D8BBE23322FF2F9E00425BAE /* DeleteButtonCell */,
 				D8BBE22E22FF1C2900425BAE /* ContactAddEditViewController.swift */,
 			);
 			path = ContactAddEditViewController;
@@ -311,15 +306,6 @@
 				D8BBE23122FF216E00425BAE /* ContactAddEditViewModel.swift */,
 			);
 			path = ContactAddEditViewModel;
-			sourceTree = "<group>";
-		};
-		D8BBE23322FF2F9E00425BAE /* DeleteButtonCell */ = {
-			isa = PBXGroup;
-			children = (
-				D8BBE23422FF2FD800425BAE /* ContactDeleteTableViewCell.swift */,
-				D8BBE23522FF2FD800425BAE /* ContactDeleteTableViewCell.xib */,
-			);
-			path = DeleteButtonCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -410,7 +396,6 @@
 				8412B6CD21FFFD7D00EA728D /* Main.storyboard in Resources */,
 				D867424822FC6A0A004C2B9A /* ContactCell.xib in Resources */,
 				D81CCBB7230166AD00B9D168 /* ContactJSON.json in Resources */,
-				D8BBE23722FF2FD800425BAE /* ContactDeleteTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,7 +419,6 @@
 				844B9283223766DB00BF79DE /* ContactsListViewController.swift in Sources */,
 				D8BBE23222FF216E00425BAE /* ContactAddEditViewModel.swift in Sources */,
 				D8BBE22122FDCA7E00425BAE /* UITextField+DoneAccessory.swift in Sources */,
-				D8BBE23622FF2FD800425BAE /* ContactDeleteTableViewCell.swift in Sources */,
 				8412B6C821FFFD7D00EA728D /* AppDelegate.swift in Sources */,
 				D867424322FC6424004C2B9A /* NetworkManager.swift in Sources */,
 				D867423F22FC5B18004C2B9A /* ContactModel.swift in Sources */,

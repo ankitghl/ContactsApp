@@ -36,6 +36,7 @@ class ContactDetailsViewController: UIViewController {
         contactDetailsTableView.register(UINib(nibName: "FieldTableViewCell", bundle: nil), forCellReuseIdentifier: fieldCellIdentifier)
 
         showActivityIndicator()
+        viewModel?.contactDetailsViewModelDelegate = self
         viewModel?.getContactDetails()
     }
 
@@ -69,12 +70,10 @@ class ContactDetailsViewController: UIViewController {
     }
 
     //MARK: - Button Tappables -
-    @objc func didTapEditBarButton(_ barButton: UIBarButtonItem) {
-        guard let contactData = viewModel?.contactData else { return }
-        
+    @objc func didTapEditBarButton(_ barButton: UIBarButtonItem) {        
         let contactAddVC = ContactAddEditViewController.instantiateFromStoryboard(from: .main)
         contactAddVC.contactUpdateDelegate = contactUpdateDelegate
-        contactAddVC.viewModel = ContactAddEditViewModel(delegate: contactAddVC, urlPath: viewModel?.path ?? "", screenType: .edit, contact: contactData)
+        contactAddVC.viewModel = viewModel?.getViewModel()
         present(UINavigationController(rootViewController: contactAddVC), animated: true, completion: nil)
     }
 
