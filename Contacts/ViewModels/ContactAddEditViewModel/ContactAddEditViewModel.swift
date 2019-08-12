@@ -6,9 +6,9 @@
 //  Copyright © 2019 GoJek. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class ContactAddEditViewModel: NSObject {
+class ContactAddEditViewModel {
 
     // MARK: - Constants and Variables -
 
@@ -21,10 +21,14 @@ class ContactAddEditViewModel: NSObject {
     var contactData: ContactDisplayModel?
 
     // MARK: - Initiliasers -
-    init(delegate: ContactViewModelProtocol, urlPath: String, screenType: ContactActionType, contact: ContactDisplayModel?) {
-        contactActionType = screenType
+    init() {
+        contactActionType = .create
+    }
+    
+    convenience init(delegate: ContactViewModelProtocol, urlPath: String, screenType: ContactActionType, contact: ContactDisplayModel?) {
+        self.init()
 
-        super.init()
+        contactActionType = screenType
         path = getPath(path: urlPath)
         contactAddDeleteViewModelDelegate = delegate
         contactData = contact
@@ -78,16 +82,19 @@ class ContactAddEditViewModel: NSObject {
     
     // MARK: - Internal Accessibles -
 
-    func validateContactAndThrowErrorMessage() -> String {
-        if let _firstName = contactData?.firstName, _firstName.count < 2 {
+    func validateContactAndThrowErrorMessage(contact: ContactDisplayModel) -> String {
+        if contact.firstName.count < 2 {
             return "Enter valid first name"
-        } else if let _lastName = contactData?.lastName, _lastName.count < 2 {
+        }
+        if contact.lastName.count < 2 {
             return "Enter valid last name"
-        } else if let _phoneNumber = contactData?.phoneNumber {
+        }
+        if let _phoneNumber = contact.phoneNumber {
             if _phoneNumber.isEmpty || !_phoneNumber.isEmpty && _phoneNumber.count < 10 {
                 return "Enter valid phonenumber"
             }
-        } else if let _email = contactData?.email, !_email.isEmpty && !validateEmail(email: _email) {
+        }
+        if contact.email.isEmpty || !contact.email.isEmpty && !validateEmail(email: contact.email) {
             return "Enter valid email"
         }
         return ""

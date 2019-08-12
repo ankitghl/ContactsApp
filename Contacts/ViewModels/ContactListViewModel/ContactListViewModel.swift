@@ -8,21 +8,41 @@
 import Foundation
 import UIKit
 
-class ContactListViewModel: NSObject {
+class ContactListViewModel {
 
     // MARK: - Constants and Variables -
     var networkClient: NetworkManager?
     weak var contactListViewModelDelegate: ContactViewModelProtocol?
-    var contactListSections: [ContactListSection] = []
+    lazy var contactListSections: [ContactListSection] = []
 
     let title = "Contacts"
     
     // MARK: - Initiliasers -
-    init(delegate: ContactViewModelProtocol) {
-        super.init()
+    init() {
+    }
+
+    convenience init(delegate: ContactViewModelProtocol) {
+        self.init()
         
         contactListViewModelDelegate = delegate
         networkClient = NetworkManager(contactDelegate: self)
+    }
+    
+    func sortAndArrangeContacts(contacts: [Contact]) -> [ContactListSection] {
+        let sortedContacts = contacts.sorted(by: { $0.fullName < $1.fullName })
+        
+        contactListSections = []
+        
+        let sectionTitles = UILocalizedIndexedCollation.current().sectionTitles
+        
+        var calculatingSections: [ContactListSection] = []
+        
+        for title in sectionTitles {
+            let contacts = sortedContacts.filter({ $0.fullName.capitalized.hasPrefix(title)})
+            let section = ContactListSection.init(sectionTitle: title, contacts: contacts)
+            calculatingSections.append(section)
+        }
+        return calculatingSections
     }
     
     //MARK: - API Calls
@@ -39,24 +59,8 @@ extension ContactListViewModel: ContactListResponseProtocol {
         do {
             let decoder = JSONDecoder.init()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
-
             let contacts =  try decoder.decode([Contact].self, from: data)
-            
-            let sortedContacts = contacts.sorted(by: { $0.fullName < $1.fullName })
-            
-            contactListSections = []
-            
-            let sectionTitles = UILocalizedIndexedCollation.current().sectionTitles
-            
-            var calculatingSections: [ContactListSection] = []
-            
-            for title in sectionTitles {
-                let contacts = sortedContacts.filter({ $0.fullName.capitalized.hasPrefix(title)})
-                let section = ContactListSection.init(sectionTitle: title, contacts: contacts)
-                calculatingSections.append(section)
-            }
-            contactListSections = calculatingSections
-
+            contactListSections = sortAndArrangeContacts(contacts: contacts)
             DispatchQueue.main.async { [weak self] in
                 self?.contactListViewModelDelegate?.didFetchContactData()
             }
@@ -65,7 +69,6 @@ extension ContactListViewModel: ContactListResponseProtocol {
                 self?.contactListViewModelDelegate?.didReceiveFetchContactDataError(error: "Cannot parse response")
             }
         }
-
     }
     
     func didReceiveContactListDataError(error: String) {

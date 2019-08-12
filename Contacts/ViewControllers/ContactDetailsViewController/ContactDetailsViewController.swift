@@ -88,8 +88,8 @@ extension ContactDetailsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 1: return viewModel?.isPresent(field: viewModel?.contactData?.phoneNumber) ?? 0
-        case 2: return viewModel?.isPresent(field: viewModel?.contactData?.email) ?? 0
+        case 1: return viewModel?.isPresent(field: viewModel?.contactData?.phoneNumber) ?? false ? 1 : 0
+        case 2: return viewModel?.isPresent(field: viewModel?.contactData?.email) ?? false ? 1 : 0
         default: return 1
         }
     }
@@ -126,8 +126,8 @@ extension ContactDetailsViewController: UITableViewDelegate {
         var height: CGFloat = 0.0
         switch indexPath.section {
         case 0: height = UITableView.automaticDimension
-        case 1: height = CGFloat(viewModel?.isPresent(field: viewModel?.contactData?.phoneNumber) == 0 ? ContactDetailsTableView.zero.height() : ContactDetailsTableView.textCell.height())
-        case 2: height = CGFloat(viewModel?.isPresent(field: viewModel?.contactData?.email) == 0 ? ContactDetailsTableView.zero.height() : ContactDetailsTableView.textCell.height())
+        case 1: height = CGFloat(viewModel?.isPresent(field: viewModel?.contactData?.phoneNumber) ?? false ? ContactDetailsTableView.textCell.height() : ContactDetailsTableView.zero.height())
+        case 2: height = CGFloat(viewModel?.isPresent(field: viewModel?.contactData?.email) ?? false ? ContactDetailsTableView.textCell.height() : ContactDetailsTableView.zero.height())
         default: break
         }
         return height

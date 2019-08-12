@@ -26,13 +26,14 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      codeCoverageEnabled = "YES"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8412B6D721FFFD8100EA728D"
+               BlueprintIdentifier = "D81CCBA423009C3F00B9D168"
                BuildableName = "ContactsTests.xctest"
                BlueprintName = "ContactsTests"
                ReferencedContainer = "container:Contacts.xcodeproj">

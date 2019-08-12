@@ -6,9 +6,9 @@
 //  Copyright © 2019 GoJek. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class ContactDetailsViewModel: NSObject {
+class ContactDetailsViewModel {
 
     // MARK: - Constants and Variables -
     private var networkClient: NetworkManager?
@@ -17,19 +17,16 @@ class ContactDetailsViewModel: NSObject {
     private(set) var contactData: ContactDisplayModel?
 
     // MARK: - Initiliasers -
-    init(delegate: ContactViewModelProtocol, urlPath: String) {
-        super.init()
+    init() {
+    }
+    
+    convenience init(delegate: ContactViewModelProtocol, urlPath: String) {
+        self.init()
         path = getPath(path: urlPath)
         contactDetailsViewModelDelegate = delegate
         networkClient = NetworkManager(contactDelegate: self)
     }
     
-    // MARK: - Private Helpers -
-    private func getPath(path: String) -> String? {
-        let urlComp = URLComponents(string: path)
-        return urlComp?.path
-    }
-
     //MARK: - API Calls
     func getContactDetails() {
         networkClient?.fetchContactList(forType: NetworkManagerRequest.contactDetails(path: path ?? ""))
@@ -43,11 +40,17 @@ class ContactDetailsViewModel: NSObject {
     }
 
     // MARK: - Internal Accesibles -
-    func isPresent(field fieldValue: String?) -> Int {
+    func getPath(path: String) -> String? {
+        let urlComp = URLComponents(string: path)
+        return urlComp?.path
+    }
+    
+
+    func isPresent(field fieldValue: String?) -> Bool {
         if fieldValue == nil || fieldValue == "" {
-            return 0
+            return false
         } else {
-            return 1
+            return true
         }
     }
     

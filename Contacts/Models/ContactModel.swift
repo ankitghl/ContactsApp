@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Contact: Decodable {
+struct Contact: Codable {
     let id: Int?
     let firstName: String?
     let lastName: String?
@@ -30,8 +30,18 @@ struct Contact: Decodable {
             return (firstName ?? "")  + " " + (lastName ?? "")
         }
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case favorite
+        case firstName = "first_name"
+        case id
+        case lastName = "last_name"
+        case profilePic = "profile_pic"
+        case url
+        case email
+        case phoneNumber
+    }
 }
-
 
 struct ContactDisplayModel {
     var firstName: String
@@ -66,5 +76,4 @@ struct ContactDisplayModel {
             return firstName + " " + lastName
         }
     }
-
 }
