@@ -59,11 +59,8 @@ class ContactAddEditViewModel {
     private func createContact() {
         guard contactData != nil else { return }
         
-        var networkService: NetworkManagerProtocol = NetworkManagerRequest.update(parameters: prepareContactParamaterDictionaryForUpdate(), path: path ?? "", type: contactActionType)
+        let networkService: NetworkManagerProtocol = NetworkManagerRequest.update(parameters: prepareContactParamaterDictionaryForUpdate(), path: path ?? "", type: contactActionType)
         
-        if contactActionType == .delete {
-            networkService = NetworkManagerRequest.delete(path: path ?? "")
-        }
         networkClient?.fetchContactList(forType: networkService)
     }
 
@@ -73,12 +70,7 @@ class ContactAddEditViewModel {
         contactActionType = .create
         createContact()
     }
-    
-    func deleteContact() {
-        contactActionType = .delete
-        createContact()
-    }
-    
+        
     // MARK: - Internal Accessibles -
 
     func validateContactAndThrowErrorMessage(contact: ContactDisplayModel) -> String {

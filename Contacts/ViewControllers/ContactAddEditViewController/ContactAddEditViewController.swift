@@ -144,11 +144,11 @@ extension ContactAddEditViewController: ContactViewModelProtocol {
             if let navigationVC = appDelegate?.window??.rootViewController as? UINavigationController {
                 navigationVC.viewControllers = navigationVC.viewControllers.dropLast()
             }
-
         }
     }
     
     func didReceiveFetchContactDataError(error: String) {
         hideActivityIndicator()
+        showAlert(title: "Contacts", message: error, style: .alert, actions: [UIAlertAction(title: "OK", style: .default, handler: nil)])
     }
 }

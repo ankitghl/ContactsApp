@@ -65,7 +65,6 @@ enum MiscellaneousConstants: Int {
 public enum ContactActionType {
     case create
     case edit
-    case delete
 }
 
 public enum ContactUpdateKeys: String {

@@ -31,16 +31,6 @@ struct Contact: Codable {
         }
     }
     
-//    enum CodingKeys: String, CodingKey {
-//        case favorite
-//        case firstName = "first_name"
-//        case id
-//        case lastName = "last_name"
-//        case profilePic = "profile_pic"
-//        case url
-//        case email
-//        case phoneNumber
-//    }
 }
 
 struct ContactDisplayModel {

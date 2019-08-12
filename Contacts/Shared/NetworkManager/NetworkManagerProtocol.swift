@@ -12,7 +12,6 @@ enum HTTPMethod: String {
     case get
     case post
     case put
-    case delete
     var type: String { return self.rawValue.uppercased() }
 }
 
