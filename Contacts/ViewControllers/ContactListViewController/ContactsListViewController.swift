@@ -76,23 +76,13 @@ extension ContactsListViewController: UITableViewDataSource, UITableViewDelegate
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: contactCellIdentifier) as! ContactCell
-
-
-        if let contact: Contact = viewModel?.contactListSections[indexPath.section].contacts[indexPath.row] {
-            cell.contactNameLabel.text = contact.fullName
-            if let _favourite = contact.favorite {
-                cell.contactFavouriteImageView.isHidden = !_favourite
-            } else {
-                cell.contactFavouriteImageView.isHidden = false
+        if let cell: ContactCell = tableView.dequeueReusableCell(withIdentifier: contactCellIdentifier) as? ContactCell {
+            if let contact: Contact = viewModel?.contactListSections[indexPath.section].contacts[indexPath.row] {
+                cell.displayData(contact: contact)
             }
-            guard let profilePic = contact.profilePic else {
-                return cell
-            }
-
-            cell.contactPhotoView.loadImage(from: NetworkManagerRequest.baseURL + profilePic, placeholder: UIImage(named: "placeholder_photo")!)
+            return cell
         }
-        return cell
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

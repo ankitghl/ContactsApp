@@ -38,7 +38,9 @@ class ContactAddEditViewController: UIViewController {
     }
 
     private func validateAndUpdateContact() {
-        if let _errorMessage = viewModel?.validateContactAndThrowErrorMessage(contact: (viewModel?.contactData)!), !_errorMessage.isEmpty {
+        if let _contact = viewModel?.contactData,
+            let _errorMessage = viewModel?.validateContactAndThrowErrorMessage(contact: _contact),
+            !_errorMessage.isEmpty {
             showAlert(title: "Contacts", message: _errorMessage, style: .alert, actions: [UIAlertAction(title: "OK", style: .default, handler: nil)])
         } else {
             showActivityIndicator()

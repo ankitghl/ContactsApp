@@ -95,13 +95,19 @@ class ContactAddEditViewModel {
 
 extension ContactAddEditViewModel: ContactListResponseProtocol {
     func didFetchContactListData(data: Data) {
-        let decoder = JSONDecoder.init()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        
-        let contact =  try! decoder.decode(Contact.self, from: data)
-        contactData = ContactDisplayModel(contact: contact)
-        DispatchQueue.main.async { [weak self] in
-            self?.contactAddDeleteViewModelDelegate?.didFetchContactData()
+        do {
+            let decoder = JSONDecoder.init()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            
+            let contact =  try decoder.decode(Contact.self, from: data)
+            contactData = ContactDisplayModel(contact: contact)
+            DispatchQueue.main.async { [weak self] in
+                self?.contactAddDeleteViewModelDelegate?.didFetchContactData()
+            }
+        } catch {
+            DispatchQueue.main.async { [weak self] in
+                self?.contactAddDeleteViewModelDelegate?.didReceiveFetchContactDataError(error: "Cannot parse response")
+            }
         }
     }
     

@@ -31,4 +31,18 @@ class ContactCell: UITableViewCell {
         contactFavouriteImageView.isHidden = true
     }
 
+    //MARK: - Internal Accessibles -
+    func displayData(contact: Contact) {
+        contactNameLabel.text = contact.fullName
+        if let _favourite = contact.favorite {
+            contactFavouriteImageView.isHidden = !_favourite
+        } else {
+            contactFavouriteImageView.isHidden = false
+        }
+        guard let profilePic = contact.profilePic else {
+            return
+        }
+        contactPhotoView.loadImage(from: NetworkManagerRequest.baseURL + profilePic, placeholder: UIImage(named: "placeholder_photo") ?? UIImage())
+    }
+
 }

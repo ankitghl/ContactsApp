@@ -57,13 +57,19 @@ class ContactDetailsViewModel {
 
 extension ContactDetailsViewModel: ContactListResponseProtocol {
     func didFetchContactListData(data: Data) {
-        let decoder = JSONDecoder.init()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        
-        let contact =  try! decoder.decode(Contact.self, from: data)
-        contactData = ContactDisplayModel(contact: contact)
-        DispatchQueue.main.async { [weak self] in
-            self?.contactDetailsViewModelDelegate?.didFetchContactData()
+        do {
+            let decoder = JSONDecoder.init()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            
+            let contact =  try decoder.decode(Contact.self, from: data)
+            contactData = ContactDisplayModel(contact: contact)
+            DispatchQueue.main.async { [weak self] in
+                self?.contactDetailsViewModelDelegate?.didFetchContactData()
+            }
+        } catch {
+            DispatchQueue.main.async { [weak self] in
+                self?.contactDetailsViewModelDelegate?.didReceiveFetchContactDataError(error: "Cannot parse response")
+            }
         }
     }
     

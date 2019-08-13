@@ -43,6 +43,7 @@ class ProfileImageTableViewCell: UITableViewCell {
 
     func configure(details: ContactDisplayModel?) {
         guard let contact = details else { return }
+        cameraButton.isHidden = true
         nameLabel.text = contact.fullName
         favouriteButton.setImage( contact.favorite ? #imageLiteral(resourceName: "favourite_button_selected") : #imageLiteral(resourceName: "favourite_button") , for: .normal)
         if contact.profileImage == "" { DispatchQueue.main.async() { self.profileImageView.image = #imageLiteral(resourceName: "icon_placeholder") } ; return }

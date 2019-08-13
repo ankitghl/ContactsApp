@@ -43,16 +43,16 @@ class ContactDetailsViewController: UIViewController {
     
     private func action(for button: UIButton) {
         switch button.tag {
-        case ContactDetailsActionTags.message.tag(): // Message
+        case ContactDetailsActionTags.messageTag.rawValue: // Message
             guard let phoneNumber = viewModel?.contactData?.phoneNumber else { return }
             sendText(to: phoneNumber)
-        case ContactDetailsActionTags.phone.tag(): //Phone
+        case ContactDetailsActionTags.phoneTag.rawValue: //Phone
             guard let phoneNumber = viewModel?.contactData?.phoneNumber else { return }
             makeACall(phoneNumber: phoneNumber)
-        case ContactDetailsActionTags.email.tag(): // Mail
+        case ContactDetailsActionTags.emailTag.rawValue: // Mail
             guard let email = viewModel?.contactData?.email, email != "" else { return }
             send(email: email)
-        case ContactDetailsActionTags.favourite.tag(): // ContactActionType
+        case ContactDetailsActionTags.favouriteTag.rawValue: // ContactActionType
             showActivityIndicator()
             viewModel?.updatefavourites()
         default: break
@@ -96,7 +96,6 @@ extension ContactDetailsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             if let cell: ProfileImageTableViewCell = tableView.dequeueReusableCell(withIdentifier: productImageCellIdentifier, for: indexPath) as? ProfileImageTableViewCell {
-                cell.cameraButton.isHidden = true
                 cell.configure(details: viewModel?.contactData)
                 cell.didButtonTap = { [weak self] button in
                     self?.action(for: button)
@@ -120,7 +119,6 @@ extension ContactDetailsViewController: UITableViewDataSource {
 }
 
 extension ContactDetailsViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var height: CGFloat = 0.0
         switch indexPath.section {

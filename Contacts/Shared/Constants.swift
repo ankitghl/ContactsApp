@@ -9,19 +9,10 @@
 import Foundation
 
 enum ContactDetailsActionTags: Int {
-    case message
-    case phone
-    case email
-    case favourite
-    
-    func tag() -> Int {
-        switch self {
-        case .message: return 1
-        case .phone: return 2
-        case .email: return 3
-        case .favourite: return 4
-        }
-    }
+    case messageTag = 1
+    case phoneTag = 2
+    case emailTag = 3
+    case favouriteTag = 4
 }
 
 enum ContactDetailsFields: String {
