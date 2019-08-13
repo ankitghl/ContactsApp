@@ -9,14 +9,14 @@
 import Foundation
 
 struct Contact: Codable {
-    let id: Int?
-    let firstName: String?
-    let lastName: String?
-    let profilePic: String?
-    let favorite: Bool?
-    let url: String?
-    let phoneNumber: String?
-    let email: String?
+    private (set) var id: Int?
+    private (set) var firstName: String?
+    private (set) var lastName: String?
+    private (set) var profilePic: String?
+    private (set) var favorite: Bool?
+    private (set) var url: String?
+    private (set) var phoneNumber: String?
+    private (set) var email: String?
     
     var fullName: String {
         
